@@ -1,0 +1,54 @@
+h1 {
+	text-align: center;
+}
+
+form {
+	width: 60%;
+	margin-right: 20%;
+	margin-left: 20%;
+}
+
+label {
+	display: inline-block;
+	width: 25%;
+	height: 30px;
+	margin-top: 8px;
+	margin-bottom: 8px;
+	text-align: right;
+	vertical-align: middle;
+	font-size: 20px;
+}
+
+input.txtField {
+	width:35%;
+	height: 30px;
+	margin-top: 8px;
+	margin-bottom: 8px;
+	font-size: 20px;
+}
+
+input.subButton {
+	width: 25%;
+	height: 45px;
+	margin-right: 40%;
+	margin-top:10px;
+	float: right;
+	font-size: 20px;
+}
+
+input.addButton {
+	width: 25%;
+	height: 45px;
+	margin-right: 1%;
+	margin-top: 10px;
+	float:right;
+	font-size: 20px;
+}
+
+textarea {
+	width: 50%;
+	height: 120px;
+	margin-top: 8px;
+	margin-bottom: 8px;
+	margin-left: 20%;
+}
