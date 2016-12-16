@@ -12,6 +12,7 @@ function validate($field) {
 		else {
 			$GLOBALS["errMsg"][$field] = "Невалиден запис";
 			return False;
+			
 		}
 	}
 }
