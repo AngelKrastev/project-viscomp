@@ -5,12 +5,9 @@
 </head>
 <body>
 	<?php
-	include 'functions-for-indexed.php';
 	include 'header.php';
+	include 'functions.php';
 	session_start();
-	$required = array('note' => True);
-	$pattern = array('note' => "//");
-	$errMsg;
 	if (isset($_SESSION["note"])) {
 		$notes = count($_SESSION["note"]);
 	}
@@ -20,20 +17,22 @@
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$notes = count($_POST["note"]);
 		$valid = True;
-		foreach (array_keys($_POST) as $field) {
+		foreach ($_POST as $field => &$value) {
 			if ($field != "addButton") {
 				for ($i = 0; $i < $notes; $i++) { 
-					$valid = $valid && validate($field, $i);
+					$valid = validate_i($field, $value[$i], $i) && $valid;
 				}
 			}
 		}
+		unset($value);
 		if ($valid) {
+			$_SESSION["notes"] = True;
 			$_SESSION["note"] = $_POST["note"];
 			if (isset($_POST["addButton"])) {
 				$notes = count($_POST["note"]) + 1;
 			}
 			else {
-				header("Location: test.php");
+				header("Location: save-and-display.php");
 			}
 		}	
 	}
@@ -45,9 +44,9 @@
 					<legend>Бележка <?php if ($notes > 1) echo $i + 1; ?></legend>
 					<div class="form-group">
 						<div class="col-sm-offset-3 col-sm-4">
-							<textarea class="form-control" name="note[]"><?php echo get_input("note", $i); ?></textarea>	
+							<textarea class="form-control" rows="5" name="note[]"><?php echo get_input_i("note", $i); ?></textarea>	
 						</div>
-						<span class="col-sm-5"><?php echo get_err("note", $i); ?></span>
+						<span class="col-sm-5"><?php echo get_err_i("note", $i); ?></span>
 					</div>
 				</fieldset>
 			<?php } ?>
@@ -58,8 +57,6 @@
 					<input class="btn btn-default" type="submit" value="Край">		
 				</div>	
 			</div>
-			
-			
 		</form>
 	</div>
 </body>

@@ -6,21 +6,21 @@
 </head>
 <body>
 	<?php
-	include 'functions.php';
 	include 'header.php';
+	include 'functions.php';
 	session_start();
-	$required = array('fName' => True, 'mName' => False, 'lName' => True, 'usrnm' => True, 'email' => True, 'phNum' => False);
-	$pattern = array('fName' => '/^[a-zA-Z]*$/', 'mName' => '/^[a-zA-Z]*$/', 'lName' => '/^[a-zA-Z]*$/', 'usrnm' => '/^\w*$/', 'email' =>'/^[a-zA-Z0-9_]+@[a-zA-Z]+\.[a-zA-Z]+$/', 'phNum' => '/^\d*$/');
-	$errMsg;
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$valid = True;
-		foreach (array_keys($_POST) as $field) {
-			$valid = validate($field) && $valid;
+		foreach ($_POST as $field => &$value) {
+			$valid = validate($field, $value) && $valid;
 		}
+		unset($value);
 		if ($valid) {
+			$_SESSION["user"] = True;
 			foreach ($_POST as $field => $value) {
 				$_SESSION[$field] = $value;
 			}
+			unset($value);
 			header("Location: addresses-form.php");
 		}
 	}
